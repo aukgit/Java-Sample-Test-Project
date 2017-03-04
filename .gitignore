@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/SampleApplication/nbproject/private/
+/SampleApplication/SampleApplication-war/nbproject/private/
+/SampleApplication/SampleApplication-ejb/nbproject/private/
+/SampleApplication/build/
+/SampleApplication/dist/
