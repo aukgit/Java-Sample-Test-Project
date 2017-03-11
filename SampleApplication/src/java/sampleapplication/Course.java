@@ -71,7 +71,7 @@ public class Course {
         this.tutionPerCredit = tutionPerCredit;
     }
     
-    public int getSubTital(){
+    public int getSubTotal(){
         return getCredit() * getTutionPerCredit();
     }
 

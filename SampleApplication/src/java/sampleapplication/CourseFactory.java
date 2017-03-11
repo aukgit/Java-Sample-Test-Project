@@ -9,22 +9,34 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Md. Alim Ul Karim
+ * @author Md. Alim Ul Karim Think of this class as a virtual database. Collects
+ * all initial courses.
  */
 public class CourseFactory {
-    private LinkedList<Course> clist;
-    
-    private void addCourse(string id, string title, int credit, int ){
-        
-    }    
-    
-    private Course getCourse(String id){
-        for (Course course : clist) {
-             if(course.getId().equals(id)){
-                return course;
+
+    private LinkedList<Course> clist = new LinkedList<>();
+
+    public void addCourse(String id, String title, int credit, int tutionPerCredit) {
+        Course c = getCourse(id);
+        if (c == null) {
+            c = new Course();
+            c.setId(id);
+            c.setTitle(title);
+            c.setCredit(credit);
+            c.setTutionPerCredit(tutionPerCredit);
+
+            clist.add(c);
+        }
+    }
+
+    public Course getCourse(String id) {
+        if (!clist.isEmpty()) {
+            for (Course course : clist) {
+                if (course.getId().equals(id)) {
+                    return course;
+                }
             }
         }
-        
         return null;
     }
 }
