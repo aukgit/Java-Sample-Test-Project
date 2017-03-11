@@ -5,6 +5,7 @@
  */
 package Global;
 
+import Adapters.TypeAdapter;
 import java.util.List;
 
 /**
@@ -18,8 +19,25 @@ public class CustomConfiguration {
     CustomConfiguration(List<String> _configFileLines) {
         numberOfPayments = Integer.parseInt(_configFileLines.get(0));
         extraFeesPercentages = new int[numberOfPayments];
-        String[] listOfPayments = _configFileLines.get(1).split(" ");
         
+        String[] listOfPayments = _configFileLines.get(1).split(" ");
+        TypeAdapter adapter = new TypeAdapter();
+        
+        extraFeesPercentages = adapter.convert(listOfPayments);
+    }
+
+    /**
+     * @return the numberOfPayments
+     */
+    public int getNumberOfPayments() {
+        return numberOfPayments;
+    }
+
+    /**
+     * @return the extraFeesPercentages
+     */
+    public int[] getExtraFeesPercentages() {
+        return extraFeesPercentages;
     }
     
     
