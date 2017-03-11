@@ -5,6 +5,7 @@
  */
 package UniversityApp;
 
+import Global.AppConfig;
 import UI.RegistrationJFrame;
 
 /**
@@ -18,6 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        // AppConfig.Configuration.getExtraFeesPercentages();
         RegistrationJFrame reg = new RegistrationJFrame();
         reg.show();
     }

@@ -5,7 +5,6 @@
  */
 package BusinessLogic;
 
-import BusinessLogic.Course;
 import Interfaces.IExtraFeeCalculator;
 import java.util.ArrayList;
 import java.util.LinkedList;

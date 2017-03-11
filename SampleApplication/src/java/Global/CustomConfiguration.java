@@ -22,14 +22,14 @@ public class CustomConfiguration {
     }
 
     private int numberOfPayments;
-    private int[] extraFeesPercentages;
+    private float[] extraFeesPercentages;
     private String[] extraPaymentAdapterClassNames;
     private String[] extraPaymentsPercentagesList;
 
     CustomConfiguration(List<String> _configFileLines) {
         numberOfPayments = Integer.parseInt(_configFileLines.get(0));
 
-        extraFeesPercentages = new int[numberOfPayments];
+        extraFeesPercentages = new float[numberOfPayments];
 
         if (numberOfPayments == 0) {
             return;
@@ -38,7 +38,7 @@ public class CustomConfiguration {
         extraPaymentAdapterClassNames = _configFileLines.get(1).split(" ");
         extraPaymentsPercentagesList = _configFileLines.get(2).split(" ");
 
-        extraFeesPercentages = TypeAdapter.convert(extraPaymentsPercentagesList);
+        extraFeesPercentages = TypeAdapter.convertToFloatList(extraPaymentsPercentagesList);
     }
 
     /**
@@ -51,7 +51,7 @@ public class CustomConfiguration {
     /**
      * @return the extraFeesPercentages
      */
-    public int[] getExtraFeesPercentages() {
+    public float[] getExtraFeesPercentages() {
         return extraFeesPercentages;
     }
 

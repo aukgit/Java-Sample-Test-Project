@@ -19,11 +19,7 @@ public class BDTaxAdapter implements IExtraFeeCalculator {
 
     @Override
     public int getExtraAmount(int courseTotal) {
-        if (AppConfig.Configuration.getExtraFeesPercentages().length == 1) {
-            return (int) thirdPartyBDTaxCalculator.calculateVATAmount(courseTotal);
-        }
-        
-        return 0;
+        return (int) Math.ceil(thirdPartyBDTaxCalculator.calculateVATAmount(courseTotal));
     }
 
 }

@@ -13,7 +13,7 @@ public interface IExtraFeeCalculator {
     /**
      * 
      * @param courseTotal
-     * @return Add extra percentage and returns the value
+     * @return Add extra percentage and returns the 
      */
     public int getExtraAmount(int courseTotal);
 }

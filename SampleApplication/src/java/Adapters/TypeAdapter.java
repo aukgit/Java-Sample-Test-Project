@@ -21,14 +21,14 @@ public class TypeAdapter {
 
     ;
     
-    public static int[] convert(String[] strs) {
+    public static float[] convertToFloatList(String[] strs) {
         if (strs == null) {
             return null;
         }
-        int[] output = new int[strs.length];
+        float[] output = new float[strs.length];
         int i = 0;
         for (String str : strs) {
-            output[i++] = Integer.parseInt(str);
+            output[i++] = Float.parseFloat(str);
         }
 
         return output;
@@ -36,7 +36,7 @@ public class TypeAdapter {
 
     public static <T> T getNewClassOf(String className) {
         try {
-            return (T) Class.forName(className).getConstructor(String.class).newInstance();
+            return (T) Class.forName(className).getConstructor().newInstance();
         } catch (Exception ex) {
             Logger.getLogger(TypeAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
