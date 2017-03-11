@@ -16,11 +16,8 @@ public class DevelopmentFeeCalculatorAdapter implements IExtraFeeCalculator {
 
     @Override
     public int getExtraAmount(int courseTotal) {
-        if(AppConfig.Configuration.getExtraFeesPercentages().length == 2){
-            return (int) Math.ceil(courseTotal * AppConfig.Configuration.getExtraFeesPercentages()[1]);
-        }
-        
-        return 0;
+        return (int) Math.ceil(courseTotal * AppConfig.Configuration.getExtraFeesPercentageForClass(this));
+
     }
 
 }

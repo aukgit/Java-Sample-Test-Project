@@ -41,6 +41,21 @@ public class CustomConfiguration {
         extraFeesPercentages = TypeAdapter.convertToFloatList(extraPaymentsPercentagesList);
     }
 
+    public float getExtraFeesPercentageForClass(Object o) {
+        String name = o.getClass().getName();
+        int i = 0;
+        for (String extraPaymentAdapterClassName : extraPaymentAdapterClassNames) {
+            if (extraPaymentAdapterClassName.equals(name)) {
+                return extraFeesPercentages[i];
+
+            }
+            i++;
+        }
+        
+        
+        return 0;
+    }
+
     /**
      * @return the numberOfPayments
      */
