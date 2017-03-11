@@ -21,7 +21,7 @@ public class RegisterCourseController {
     private DefaultTableModel model;
     private CourseFactory courseFactory = new CourseFactory();
 
-    RegisterCourseController(JTable jtable) {
+    public RegisterCourseController(JTable jtable) {
         table = jtable;
         makeNewRegistration();
         initializeCourses();
