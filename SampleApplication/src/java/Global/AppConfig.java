@@ -19,6 +19,8 @@ import java.util.logging.Logger;
  * @author Alim
  */
 public class AppConfig {
+    
+    private AppConfig(){}
 
     public static final int MAX_TRY_LOGIN = 10;
     public static final boolean IS_TESTING = true;
@@ -31,14 +33,14 @@ public class AppConfig {
 
     private static String _appPath;
     private static String _pictureUploadPath;
-    private static String _connectionConfigTextFilePath = "server.loc";
+    private static String _connectionConfigTextFilePath = "config.txt";
     private static List<String> _configFileLines;
 
     public static CustomConfiguration Configuration = readDefaultConfigFile();
 
     /**
      *
-     * @return E:\Working\GitHub\....Application name\server.loc
+     * @return E:\Working\GitHub\....Application name\config.txt
      */
     public static String getAbsoluteServerConfigFilePath() {
         return getAppPath() + DIRECTORY_SEPERATOR + _connectionConfigTextFilePath;
@@ -74,6 +76,7 @@ public class AppConfig {
 
     public static CustomConfiguration readDefaultConfigFile() {
         try {
+            System.out.println(getAbsoluteServerConfigFilePath());
             _configFileLines = Files.readAllLines(Paths.get(getAbsoluteServerConfigFilePath()), Charset.defaultCharset());
         } catch (IOException ex) {
             Logger.getLogger(AppConfig.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,10 +85,5 @@ public class AppConfig {
         CustomConfiguration config = new CustomConfiguration(_configFileLines);
  
         return config;
-    }
-
-   
-    public AppConfig() {
-
     }
 }

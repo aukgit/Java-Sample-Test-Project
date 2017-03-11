@@ -5,6 +5,10 @@
  */
 package BusinessLogic;
 
+import Adapters.TypeAdapter;
+import Global.AppConfig;
+import Interfaces.IExtraFeeCalculator;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -13,6 +17,38 @@ import java.util.LinkedList;
  * all initial courses.
  */
 public class CourseFactory {
+
+    private static CourseFactory instance;
+    private static ArrayList<IExtraFeeCalculator> calculators;
+
+    // cannot create outside
+    private CourseFactory() {
+    }
+
+    public static synchronized CourseFactory getInstance() {
+        if (instance == null) {
+            instance = new CourseFactory();
+        }
+
+        return instance;
+    }
+
+    public ArrayList<IExtraFeeCalculator> getExtraCalculators() {
+        if (calculators == null) {
+            calculators = new ArrayList<IExtraFeeCalculator>(10);
+
+            if (AppConfig.Configuration.getExtraPaymentAdapterClassNames().length == 0) {
+                return calculators;
+            }
+
+            for (String extraPaymentAdapterClassName : AppConfig.Configuration.getExtraPaymentAdapterClassNames()) {
+                calculators.add(TypeAdapter.getNewClassOf(extraPaymentAdapterClassName));
+            }
+        }
+        
+        
+        return calculators;
+    }
 
     private LinkedList<Course> clist = new LinkedList<>();
 

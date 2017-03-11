@@ -6,6 +6,8 @@
 package BusinessLogic;
 
 import BusinessLogic.Course;
+import Interfaces.IExtraFeeCalculator;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -22,7 +24,7 @@ public class Registration {
             clist.add(c);
             return true;
         }
-        
+
         return false;
     }
 
@@ -58,6 +60,26 @@ public class Registration {
         }
 
         return total;
+    }
+
+    public int getGrandTotal() {
+        return getExtraFeeAmount() + getTotal();
+    }
+
+    public int getExtraFeeAmount() {
+        ArrayList<IExtraFeeCalculator> calcs = CourseFactory.getInstance().getExtraCalculators();
+        if(calcs.isEmpty()){
+            return 0;
+        }
+        
+        int extraSum = 0,
+            total = getTotal();
+
+        for (IExtraFeeCalculator calc : calcs) {
+            extraSum += calc.getExtraAmount(total);
+        }
+
+        return extraSum;
     }
 
 }

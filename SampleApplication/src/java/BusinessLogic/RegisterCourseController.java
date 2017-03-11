@@ -19,7 +19,7 @@ public class RegisterCourseController {
     private JTable table;
     private boolean initializedTable = false;
     private DefaultTableModel model;
-    private CourseFactory courseFactory = new CourseFactory();
+
 
     public RegisterCourseController(JTable jtable) {
         table = jtable;
@@ -31,14 +31,14 @@ public class RegisterCourseController {
     }
 
     private void initializeCourses() {
-        courseFactory.addCourse("CSE115", "Introduction to Programming", 3, 5500);
-        courseFactory.addCourse("CSE413", "Microprocessor Lab", 2, 5500);
-        courseFactory.addCourse("MAT116", "Precalculus", 3, 5500);
-        courseFactory.addCourse("MAT350", "Math - V", 3, 5500);
-        courseFactory.addCourse("CSE225", "Datastructure", 3, 5500);
-        courseFactory.addCourse("MAT120", "Introduction to Calculus", 3, 5500);
-        courseFactory.addCourse("CSE331", "Microprocessor Design", 3, 5500);
-        courseFactory.addCourse("CSE311", "Introduction to database", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE115", "Introduction to Programming", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE413", "Microprocessor Lab", 2, 5500);
+        CourseFactory.getInstance().addCourse("MAT116", "Precalculus", 3, 5500);
+        CourseFactory.getInstance().addCourse("MAT350", "Math - V", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE225", "Datastructure", 3, 5500);
+        CourseFactory.getInstance().addCourse("MAT120", "Introduction to Calculus", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE331", "Microprocessor Design", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE311", "Introduction to database", 3, 5500);
     }
 
     public void ClearTable() {
@@ -79,7 +79,7 @@ public class RegisterCourseController {
         }
         
         id = id.toUpperCase();
-        Course c = courseFactory.getCourse(id);
+        Course c = CourseFactory.getInstance().getCourse(id);
 
         if (c != null) {
             if (reg.addCourse(c)) {

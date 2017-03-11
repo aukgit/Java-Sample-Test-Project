@@ -1,0 +1,3 @@
+2
+Adapters.BDTaxAdapter Adapters.DevelopmentFeeCalculatorAdapter
+0.15 0.1

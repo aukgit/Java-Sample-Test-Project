@@ -13,17 +13,32 @@ import java.util.List;
  * @author Md. Alim Ul Karim
  */
 public class CustomConfiguration {
+
+    /**
+     * @return the extraPaymentAdapterClassNames
+     */
+    public String[] getExtraPaymentAdapterClassNames() {
+        return extraPaymentAdapterClassNames;
+    }
+
     private int numberOfPayments;
     private int[] extraFeesPercentages;
-    
+    private String[] extraPaymentAdapterClassNames;
+    private String[] extraPaymentsPercentagesList;
+
     CustomConfiguration(List<String> _configFileLines) {
         numberOfPayments = Integer.parseInt(_configFileLines.get(0));
+
         extraFeesPercentages = new int[numberOfPayments];
-        
-        String[] listOfPayments = _configFileLines.get(1).split(" ");
-        TypeAdapter adapter = new TypeAdapter();
-        
-        extraFeesPercentages = adapter.convert(listOfPayments);
+
+        if (numberOfPayments == 0) {
+            return;
+        }
+
+        extraPaymentAdapterClassNames = _configFileLines.get(1).split(" ");
+        extraPaymentsPercentagesList = _configFileLines.get(2).split(" ");
+
+        extraFeesPercentages = TypeAdapter.convert(extraPaymentsPercentagesList);
     }
 
     /**
@@ -39,7 +54,5 @@ public class CustomConfiguration {
     public int[] getExtraFeesPercentages() {
         return extraFeesPercentages;
     }
-    
-    
-    
+
 }

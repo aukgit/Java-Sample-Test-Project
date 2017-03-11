@@ -1,0 +1,3 @@
+numberOfPayments
+Class1Name Class2Name
+PercentageofPaymentInClass1 PercentageofPaymentInClass2
