@@ -16,7 +16,10 @@ public class FreedomFigtherDiscount implements IDiscountStrategy{
 
     @Override
     public int getTotal(Registration registration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(registration.isFreedomFighter()){
+            return registration.getGrandTotal() - 20000;
+        }
+        return 0;
     }
     
 }

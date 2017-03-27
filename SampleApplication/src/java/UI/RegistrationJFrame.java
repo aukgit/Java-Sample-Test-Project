@@ -12,6 +12,8 @@ import ObserverPattern.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Interfaces.*;
+import StrategyPattern.CompositeDiscount;
+import java.util.List;
 
 /**
  *
@@ -22,8 +24,9 @@ import Interfaces.*;
 public class RegistrationJFrame extends javax.swing.JFrame implements IObserverable{
 
     private RegisterCourseController rcc;
-    private Publisher publisher;
-    private BeeperObserver beeperObserver;
+    private Publisher publisher = new Publisher();
+    private BeeperObserver beeperObserver = new BeeperObserver();
+    private IDiscountStrategy DiscountStrategy;
     /**
      * Creates new form RegistrationJFrame
      */
@@ -53,6 +56,8 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         // so that when a data is updated it can see it.
         publisher.register(this);
         publisher.register(beeperObserver);
+        
+        System.gc();
     }
 
     /**
@@ -77,7 +82,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         DiscountTextBox = new javax.swing.JTextField();
         TaxLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        discountTypeListBox = new javax.swing.JList<>();
         CGPATextField = new javax.swing.JTextField();
         TaxLabel3 = new javax.swing.JLabel();
         calculateDiscountBtn = new javax.swing.JButton();
@@ -145,12 +150,12 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         TaxLabel2.setText("Discount");
         TaxLabel2.setToolTipText("");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        discountTypeListBox.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Academic Excellence", "Freedom Fighter", "Aboriginal / Minority Group", "Best for NSU", "Best for Student" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(discountTypeListBox);
 
         CGPATextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         CGPATextField.setToolTipText("");
@@ -282,6 +287,9 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
 
     private void calculateDiscountBtnAddNewCourseAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateDiscountBtnAddNewCourseAction
         // TODO add your handling code here:
+        List<String> values = discountTypeListBox.getSelectedValuesList();
+        
+        publisher.notifyObserver("grand.total", WIDTH);
     }//GEN-LAST:event_calculateDiscountBtnAddNewCourseAction
 
     /**
@@ -330,10 +338,10 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
     private javax.swing.JLabel TaxLabel3;
     private javax.swing.JTextField TaxTextBox;
     private javax.swing.JButton calculateDiscountBtn;
+    private javax.swing.JList<String> discountTypeListBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -341,8 +349,8 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
 
     @Override
     public void update(IObserverable source, String propertyName, int value) {
-        if("sale.total".equals(propertyName)){
-            
+        if(this.equals(source) && "grand.total".equals(propertyName)){
+          GrandTotalTextBox.setText(Integer.toString(value));
         }
     }
 }

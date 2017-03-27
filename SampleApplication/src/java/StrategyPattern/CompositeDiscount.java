@@ -8,6 +8,7 @@ package StrategyPattern;
 import BusinessLogic.Registration;
 import Interfaces.IDiscountStrategy;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -31,6 +32,29 @@ public class CompositeDiscount implements IDiscountStrategy {
 
     public void add(IDiscountStrategy discountLogic) {
         getDiscountsList().add(discountLogic);
+    }
+    
+    public void add(List<String> discountStrategies) {
+        /**
+         * Academic Excellence
+         * Freedom Fighter
+         * Aboriginal / Minority Group
+         * Best for NSU
+         * Best for Student
+         */
+        for (String discountStrategy : discountStrategies) {
+            switch(discountStrategy){
+                case "Academic Excellence":
+                   add(new AcademicExcellenceDiscount());
+                    break;
+                    case "Freedom Fighter":
+                   add(new FreedomFigtherDiscount());
+                    break;
+                    case "Freedom Fighter":
+                   add(new FreedomFigtherDiscount());
+                    break;
+            }
+        }
     }
 
     @Override

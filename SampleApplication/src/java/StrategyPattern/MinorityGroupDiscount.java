@@ -12,16 +12,11 @@ import Interfaces.IDiscountStrategy;
  *
  * @author Md. Alim Ul Karim
  */
-public class AcademicExcellenceDiscount implements IDiscountStrategy {
+public class MinorityGroupDiscount implements IDiscountStrategy{
 
     @Override
     public int getTotal(Registration registration) {
-        int gradTotal = registration.getGrandTotal();
-        float discount = 0;
-        if (registration.getCGPA() >= 3.75) {
-            discount = (float) gradTotal * (float) 0.5; // 50% discount.
-        }
-        return (int) discount;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
