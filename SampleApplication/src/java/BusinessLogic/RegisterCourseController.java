@@ -39,6 +39,7 @@ public class RegisterCourseController {
         CourseFactory.getInstance().addCourse("MAT120", "Introduction to Calculus", 3, 5500);
         CourseFactory.getInstance().addCourse("CSE331", "Microprocessor Design", 3, 5500);
         CourseFactory.getInstance().addCourse("CSE311", "Introduction to database", 3, 5500);
+        CourseFactory.getInstance().addCourse("CSE499", "Project", 3, 5500);
     }
 
     public void ClearTable() {

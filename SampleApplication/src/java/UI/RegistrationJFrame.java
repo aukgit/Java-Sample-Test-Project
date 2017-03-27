@@ -8,17 +8,21 @@ package UI;
 import BusinessLogic.CourseFactory;
 import BusinessLogic.RegisterCourseController;
 import Global.AppConfig;
+import Interfaces.IObserver;
+import ObserverPattern.TotalPublisher;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
  * @author Md. Alim Ul Karim
+ * RegistrationJFrame is now a subscriber or observer or reader which gets updated when publisher/subject publishes/notifies something.
+ * 
  */
-public class RegistrationJFrame extends javax.swing.JFrame {
+public class RegistrationJFrame extends javax.swing.JFrame implements IObserver{
 
     private RegisterCourseController rcc;
-
+    private TotalPublisher totalPublisher;
     /**
      * Creates new form RegistrationJFrame
      */
@@ -43,6 +47,10 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         } else {
             TaxLabel.setText("No extra fees");
         }
+        
+        // register this subscriber or observer to the publisher
+        // so that when a data is updated it can see it.
+        totalPublisher.register(this);
     }
 
     /**
@@ -252,4 +260,11 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(IObserver source, String propertyName, int value) {
+        if("sale.total".equals(propertyName)){
+            
+        }
+    }
 }
