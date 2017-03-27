@@ -16,9 +16,7 @@ public class AcademicExcellenceDiscount implements IDiscountStrategy {
 
     @Override
     public int getTotal(Registration registration) {
-        int gradTotal = registration.getGrandTotal();
-        float discount = 0;
-        discount = (float) gradTotal * (float) 0.5; // 50% discount.
+        float discount = (float) registration.getGrandTotal() * (float) 0.5; // 50% discount.
         return (int) discount;
     }
 

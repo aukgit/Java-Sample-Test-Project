@@ -6,6 +6,7 @@
 package UI;
 
 import BusinessLogic.RegisterCourseController;
+import BusinessLogic.Registration;
 import Global.AppConfig;
 import ObserverPattern.*;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ import java.util.List;
  *
  */
 public class RegistrationJFrame extends javax.swing.JFrame implements IObserverable {
-    
+
     private RegisterCourseController rcc;
     private Publisher publisher = new Publisher();
     private BeeperObserver beeperObserver = new BeeperObserver();
@@ -36,7 +37,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
     public RegistrationJFrame() {
         initComponents();
         rcc = new RegisterCourseController(jTable1);
-        
+
         if (AppConfig.Configuration.getExtraPaymentAdapterClassNames().length > 0) {
             String[] list = AppConfig.Configuration.getExtraPaymentAdapterClassNames().clone();
             int i = 0;
@@ -48,7 +49,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                 list[i] = adapterName;
                 i++;
             }
-            
+
             String labelDisplay = String.join(" + ", list);
             TaxLabel.setText(labelDisplay);
         } else {
@@ -59,7 +60,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         // so that when a data is updated it can see it.
         publisher.register(this);
         publisher.register(beeperObserver);
-        
+
         System.gc();
     }
 
@@ -86,8 +87,6 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         TaxLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         discountTypeListBox = new javax.swing.JList<>();
-        CGPATextField = new javax.swing.JTextField();
-        TaxLabel3 = new javax.swing.JLabel();
         calculateDiscountBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -160,13 +159,6 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         });
         jScrollPane2.setViewportView(discountTypeListBox);
 
-        CGPATextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        CGPATextField.setToolTipText("");
-
-        TaxLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        TaxLabel3.setText("Achieved CGPA");
-        TaxLabel3.setToolTipText("");
-
         calculateDiscountBtn.setText("Calculate Discount");
         calculateDiscountBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,13 +175,11 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(calculateDiscountBtn)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(92, 92, 92)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(258, 258, 258)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(TaxLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                .addComponent(TaxLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TaxTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -202,11 +192,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(TaxLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(GrandTotalTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(TaxLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CGPATextField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(GrandTotalTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
@@ -215,7 +201,8 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(CourseIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))
+                                .addComponent(jButton2))
+                            .addComponent(calculateDiscountBtn))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -239,21 +226,16 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                             .addComponent(TaxLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CGPATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TaxLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DiscountTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TaxLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(GrandTotalTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TaxLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(calculateDiscountBtn)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(calculateDiscountBtn)
+                .addContainerGap())
         );
 
         jButton1.getAccessibleContext().setAccessibleName("NewRegistrationButton");
@@ -280,14 +262,15 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         } catch (Exception ex) {
             Logger.getLogger(RegistrationJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_AddNewCourseAction
 
     private void calculateDiscountBtnAddNewCourseAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateDiscountBtnAddNewCourseAction
         // TODO add your handling code here:
         List<String> discountLogicsNames = discountTypeListBox.getSelectedValuesList();
-        
+        compositeDiscount = null;
+
         for (String discountLogicName : discountLogicsNames) {
             if ("Best for NSU".equals(discountLogicName)) {
                 compositeDiscount = new BestForNSU();
@@ -295,18 +278,21 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                 compositeDiscount = new BestForStudent();
             }
         }
-        
+
         if (compositeDiscount == null) {
             compositeDiscount = new CompositeDiscount();
         }
 
         // initialize all discount logics from the list of names
         compositeDiscount.add(discountLogicsNames);
-        
-        publisher.notifyObserver("tax.total", rcc.getRegistration().getExtraFeeAmount());
-        publisher.notifyObserver("grand.total", rcc.getRegistration().getGrandTotal());
-        publisher.notifyObserver("discount.total", compositeDiscount.getTotal(rcc.getRegistration()));
+
+        Registration reg = rcc.getRegistration();
+        publisher.notifyObserver("tax.total", reg.getExtraFeeAmount());
+        publisher.notifyObserver("grand.total", reg.getGrandTotal());
+        publisher.notifyObserver("discount.total", compositeDiscount.getTotal(reg));
         publisher.notifyObserver("beep", 1);
+
+        System.gc();
     }//GEN-LAST:event_calculateDiscountBtnAddNewCourseAction
 
     /**
@@ -345,14 +331,12 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CGPATextField;
     private javax.swing.JTextField CourseIDTextField;
     private javax.swing.JTextField DiscountTextBox;
     private javax.swing.JTextField GrandTotalTextBox;
     private javax.swing.JLabel TaxLabel;
     private javax.swing.JLabel TaxLabel1;
     private javax.swing.JLabel TaxLabel2;
-    private javax.swing.JLabel TaxLabel3;
     private javax.swing.JTextField TaxTextBox;
     private javax.swing.JButton calculateDiscountBtn;
     private javax.swing.JList<String> discountTypeListBox;
