@@ -16,7 +16,7 @@ public class MinorityGroupDiscount implements IDiscountStrategy{
 
     @Override
     public int getTotal(Registration registration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (int)(registration.getGrandTotal() * (0.6));
     }
     
 }

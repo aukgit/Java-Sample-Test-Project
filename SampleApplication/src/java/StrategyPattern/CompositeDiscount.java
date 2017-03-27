@@ -33,27 +33,25 @@ public class CompositeDiscount implements IDiscountStrategy {
     public void add(IDiscountStrategy discountLogic) {
         getDiscountsList().add(discountLogic);
     }
-    
+
     public void add(List<String> discountStrategies) {
         /**
-         * Academic Excellence
-         * Freedom Fighter
-         * Aboriginal / Minority Group
-         * Best for NSU
-         * Best for Student
+         * Academic Excellence,Freedom Fighter, Aboriginal / Minority Group Best,
+         * for NSU Best for Student
          */
         for (String discountStrategy : discountStrategies) {
-            switch(discountStrategy){
+            switch (discountStrategy) {
                 case "Academic Excellence":
-                   add(new AcademicExcellenceDiscount());
+                    add(new AcademicExcellenceDiscount());
                     break;
-                    case "Freedom Fighter":
-                   add(new FreedomFigtherDiscount());
+                case "Freedom Fighter":
+                    add(new FreedomFigtherDiscount());
                     break;
-                    case "Freedom Fighter":
-                   add(new FreedomFigtherDiscount());
+                case "Aboriginal / Minority Group":
+                    add(new MinorityGroupDiscount());
                     break;
             }
+            
         }
     }
 
@@ -61,9 +59,9 @@ public class CompositeDiscount implements IDiscountStrategy {
     public int getTotal(Registration registration) {
         int sum = 0;
         for (IDiscountStrategy iDiscountStrategy : getDiscountsList()) {
-            sum +=iDiscountStrategy.getTotal(registration);
+            sum += iDiscountStrategy.getTotal(registration);
         }
-        
+
         return sum;
     }
 

@@ -18,9 +18,7 @@ public class AcademicExcellenceDiscount implements IDiscountStrategy {
     public int getTotal(Registration registration) {
         int gradTotal = registration.getGrandTotal();
         float discount = 0;
-        if (registration.getCGPA() >= 3.75) {
-            discount = (float) gradTotal * (float) 0.5; // 50% discount.
-        }
+        discount = (float) gradTotal * (float) 0.5; // 50% discount.
         return (int) discount;
     }
 

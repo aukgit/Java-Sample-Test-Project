@@ -12,14 +12,11 @@ import Interfaces.IDiscountStrategy;
  *
  * @author Md. Alim Ul Karim
  */
-public class FreedomFigtherDiscount implements IDiscountStrategy{
+public class FreedomFigtherDiscount implements IDiscountStrategy {
 
     @Override
     public int getTotal(Registration registration) {
-        if(registration.isFreedomFighter()){
-            return registration.getGrandTotal() - 20000;
-        }
-        return 0;
+        return registration.getGrandTotal() - 20000;
     }
-    
+
 }

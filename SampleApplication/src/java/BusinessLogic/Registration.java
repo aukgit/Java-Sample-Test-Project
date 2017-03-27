@@ -16,8 +16,7 @@ import java.util.LinkedList;
 public class Registration {
 
     private LinkedList<Course> clist = new LinkedList<>();
-    private float CGPA;
-    private boolean freedomFighter;
+
     
 
     public boolean addCourse(Course c) {
@@ -82,34 +81,6 @@ public class Registration {
         }
 
         return extraSum;
-    }
-
-    /**
-     * @return the CGPA
-     */
-    public float getCGPA() {
-        return CGPA;
-    }
-
-    /**
-     * @param CGPA the CGPA to set
-     */
-    public void setCGPA(float CGPA) {
-        this.CGPA = CGPA;
-    }
-
-    /**
-     * @return the freedomFighter
-     */
-    public boolean isFreedomFighter() {
-        return freedomFighter;
-    }
-
-    /**
-     * @param isFreedomFighter the freedomFighter to set
-     */
-    public void setFreedomFighter(boolean isFreedomFighter) {
-        this.freedomFighter = isFreedomFighter;
     }
 
 }

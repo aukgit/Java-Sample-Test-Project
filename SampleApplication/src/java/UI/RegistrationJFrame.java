@@ -5,35 +5,38 @@
  */
 package UI;
 
-
 import BusinessLogic.RegisterCourseController;
 import Global.AppConfig;
 import ObserverPattern.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Interfaces.*;
+import StrategyPattern.BestForNSU;
+import StrategyPattern.BestForStudent;
 import StrategyPattern.CompositeDiscount;
 import java.util.List;
 
 /**
  *
- * @author Md. Alim Ul Karim
- * RegistrationJFrame is now a subscriber or observer or reader or listener which gets updated when publisher/subject publishes/notifies something.
- * 
+ * @author Md. Alim Ul Karim RegistrationJFrame is now a subscriber or observer
+ * or reader or listener which gets updated when publisher/subject
+ * publishes/notifies something.
+ *
  */
-public class RegistrationJFrame extends javax.swing.JFrame implements IObserverable{
-
+public class RegistrationJFrame extends javax.swing.JFrame implements IObserverable {
+    
     private RegisterCourseController rcc;
     private Publisher publisher = new Publisher();
     private BeeperObserver beeperObserver = new BeeperObserver();
-    private IDiscountStrategy DiscountStrategy;
+    private CompositeDiscount compositeDiscount;
+
     /**
      * Creates new form RegistrationJFrame
      */
     public RegistrationJFrame() {
         initComponents();
         rcc = new RegisterCourseController(jTable1);
-
+        
         if (AppConfig.Configuration.getExtraPaymentAdapterClassNames().length > 0) {
             String[] list = AppConfig.Configuration.getExtraPaymentAdapterClassNames().clone();
             int i = 0;
@@ -45,13 +48,13 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                 list[i] = adapterName;
                 i++;
             }
-
+            
             String labelDisplay = String.join(" + ", list);
             TaxLabel.setText(labelDisplay);
         } else {
             TaxLabel.setText("No extra fees");
         }
-        
+
         // register this subscriber or observer to the publisher
         // so that when a data is updated it can see it.
         publisher.register(this);
@@ -276,20 +279,34 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
             rcc.addCourse(this.CourseIDTextField.getText());
         } catch (Exception ex) {
             Logger.getLogger(RegistrationJFrame.class.getName()).log(Level.SEVERE, null, ex);
-
         }
-
-        TaxTextBox.setText(Integer.toString(rcc.getRegistration().getExtraFeeAmount()));
-
-        GrandTotalTextBox.setText(Integer.toString(rcc.getRegistration().getGrandTotal()));
+        
 
     }//GEN-LAST:event_AddNewCourseAction
 
     private void calculateDiscountBtnAddNewCourseAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateDiscountBtnAddNewCourseAction
         // TODO add your handling code here:
-        List<String> values = discountTypeListBox.getSelectedValuesList();
+        List<String> discountLogicsNames = discountTypeListBox.getSelectedValuesList();
         
-        publisher.notifyObserver("grand.total", WIDTH);
+        for (String discountLogicName : discountLogicsNames) {
+            if ("Best for NSU".equals(discountLogicName)) {
+                compositeDiscount = new BestForNSU();
+            } else if ("Best for Student".equals(discountLogicName)) {
+                compositeDiscount = new BestForStudent();
+            }
+        }
+        
+        if (compositeDiscount == null) {
+            compositeDiscount = new CompositeDiscount();
+        }
+
+        // initialize all discount logics from the list of names
+        compositeDiscount.add(discountLogicsNames);
+        
+        publisher.notifyObserver("tax.total", rcc.getRegistration().getExtraFeeAmount());
+        publisher.notifyObserver("grand.total", rcc.getRegistration().getGrandTotal());
+        publisher.notifyObserver("discount.total", compositeDiscount.getTotal(rcc.getRegistration()));
+        publisher.notifyObserver("beep", 1);
     }//GEN-LAST:event_calculateDiscountBtnAddNewCourseAction
 
     /**
@@ -349,8 +366,16 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
 
     @Override
     public void update(IObserverable source, String propertyName, int value) {
-        if(this.equals(source) && "grand.total".equals(propertyName)){
-          GrandTotalTextBox.setText(Integer.toString(value));
+        switch (propertyName) {
+            case "grand.total":
+                GrandTotalTextBox.setText(Integer.toString(value));
+                break;
+            case "tax.total":
+                TaxTextBox.setText(Integer.toString(value));
+                break;
+            case "discount.total":
+                DiscountTextBox.setText(Integer.toString(value));
+                break;
         }
     }
 }
