@@ -5,24 +5,25 @@
  */
 package UI;
 
-import BusinessLogic.CourseFactory;
+
 import BusinessLogic.RegisterCourseController;
 import Global.AppConfig;
-import Interfaces.IObserver;
-import ObserverPattern.TotalPublisher;
+import ObserverPattern.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Interfaces.*;
 
 /**
  *
  * @author Md. Alim Ul Karim
- * RegistrationJFrame is now a subscriber or observer or reader which gets updated when publisher/subject publishes/notifies something.
+ * RegistrationJFrame is now a subscriber or observer or reader or listener which gets updated when publisher/subject publishes/notifies something.
  * 
  */
-public class RegistrationJFrame extends javax.swing.JFrame implements IObserver{
+public class RegistrationJFrame extends javax.swing.JFrame implements IObserverable{
 
     private RegisterCourseController rcc;
-    private TotalPublisher totalPublisher;
+    private Publisher publisher;
+    private BeeperObserver beeperObserver;
     /**
      * Creates new form RegistrationJFrame
      */
@@ -50,7 +51,8 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObserver{
         
         // register this subscriber or observer to the publisher
         // so that when a data is updated it can see it.
-        totalPublisher.register(this);
+        publisher.register(this);
+        publisher.register(beeperObserver);
     }
 
     /**
@@ -262,7 +264,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObserver{
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void update(IObserver source, String propertyName, int value) {
+    public void update(IObserverable source, String propertyName, int value) {
         if("sale.total".equals(propertyName)){
             
         }

@@ -5,7 +5,6 @@
  */
 package Interfaces;
 
-import javax.swing.JTextField;
 
 /**
  *
@@ -14,7 +13,7 @@ import javax.swing.JTextField;
  * Only displays things or reads nothing else.
  * 
  */
-public interface IObserver {
+public interface IObserverable {
 
     /**
      * This is similar to the onPropertyEvent Method in the slide.
@@ -23,6 +22,6 @@ public interface IObserver {
      * @param propertyName : Which property to update
      * @param value : What is the value of that property.
      */
-    public void update(IObserver source, String propertyName, int value);
+    public void update(IObserverable source, String propertyName, int value);
 
 }
