@@ -245,7 +245,7 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(calculateDiscountBtn)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jButton1.getAccessibleContext().setAccessibleName("NewRegistrationButton");
