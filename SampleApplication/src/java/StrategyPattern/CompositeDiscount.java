@@ -15,20 +15,28 @@ import java.util.LinkedList;
  */
 public class CompositeDiscount implements IDiscountStrategy {
 
+    /**
+     * @return the discountsList
+     */
+    protected LinkedList<IDiscountStrategy> getDiscountsList() {
+        return discountsList;
+    }
+
     private LinkedList<IDiscountStrategy> discountsList;
 
     public CompositeDiscount() {
         discountsList = new LinkedList<IDiscountStrategy>();
+        System.gc(); // removes dangling pointers
     }
 
     public void add(IDiscountStrategy discountLogic) {
-        discountsList.add(discountLogic);
+        getDiscountsList().add(discountLogic);
     }
 
     @Override
     public int getTotal(Registration registration) {
         int sum = 0;
-        for (IDiscountStrategy iDiscountStrategy : discountsList) {
+        for (IDiscountStrategy iDiscountStrategy : getDiscountsList()) {
             sum +=iDiscountStrategy.getTotal(registration);
         }
         
