@@ -258,7 +258,14 @@ public class RegistrationJFrame extends javax.swing.JFrame implements IObservera
         try {
             // TODO add your handling code here:
             // Add course by id from course factory
-            rcc.addCourse(this.CourseIDTextField.getText());
+            List<String> discountLogicsNames = discountTypeListBox.getSelectedValuesList();
+            if (discountLogicsNames.indexOf("Freedom Fighter") > -1) {
+                if (rcc.getRegistration().getRegisteredCourseList().size() < 5) {
+                    rcc.addCourse(this.CourseIDTextField.getText());
+                }
+            } else {
+                rcc.addCourse(this.CourseIDTextField.getText());
+            }
         } catch (Exception ex) {
             Logger.getLogger(RegistrationJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -22,6 +22,11 @@ public class BestForNSU extends CompositeDiscount {
     @Override
     public int getTotal(Registration registration) {
         int lowest = Integer.MAX_VALUE;
+        
+        if(getDiscountsList().size() <= 1){
+            return 0;
+        }
+        
         for (IDiscountStrategy iDiscountStrategy : getDiscountsList()) {
             int currentDiscount = iDiscountStrategy.getTotal(registration);
             if (lowest >= currentDiscount) {
